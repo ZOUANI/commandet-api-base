@@ -40,15 +40,12 @@ public class CommandeServiceImpl implements CommandeService {
 
     @Override
     public Commande saveCommandeWithCommandeItems(Commande commande) {
-       // if (validateCommande(commande.getCommandeItems())) {
             calculerTotal(commande, commande.getCommandeItems());
             commandeDao.save(commande);
             commandeItemService.saveCommandeItems(commande, commande.getCommandeItems());
             System.out.println("save commandeItems success");
             return commande;
-     //   } else {
-       //     return null;
-        //}
+     
     }
 
     @Override
@@ -66,26 +63,6 @@ public class CommandeServiceImpl implements CommandeService {
         commande.setTotal(total);
     }
 
-    /* private boolean validateCommande(List<CommandeItem> commandeItems) {
-        return validateReferenceProduit(commandeItems);
-    }
 
-   private boolean validateReferenceProduit(List<CommandeItem> commandeItems) {
-        if (commandeItems == null || commandeItems.isEmpty()) {
-            return false;
-        } else if (commandeItems.size() > commandeDomainConfig.getNombreLimitProduit()) {
-            return false;
-        } else {
-            int cmp = 0;
-            for (CommandeItem commandeItem : commandeItems) {
-                if (produitProxy.findByReference(commandeItem.getReferenceProduit()) != null) {
-                    cmp++;
-                }
-            }
-            System.out.println("ha cmp ==> "+cmp+" o ha size ==> "+commandeItems.size());
-            return (cmp == commandeItems.size());
-       //     return true;
-        }
-    }*/
 
 }
